@@ -1,0 +1,29 @@
+{
+  "name": "appveyor-env",
+  "version": "0.0.1",
+  "description": "Figure out few details of appveyor env viz. powershell, gcc, equivalent of find etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reeteshranjan/appveyor-env.git"
+  },
+  "keywords": [
+    "appveyor",
+    "env",
+    "powershell",
+    "gcc",
+    "gcov"
+  ],
+  "author": "Reetesh Ranjan <reeteshranjan@piaxis.tech>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/reeteshranjan/appveyor-env/issues"
+  },
+  "homepage": "https://github.com/reeteshranjan/appveyor-env#readme",
+  "devDependencies": {
+    "codecov": "^2.2.0"
+  }
+}
