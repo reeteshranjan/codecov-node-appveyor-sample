@@ -22,12 +22,12 @@ init:
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
-#  - copy etc\lib\codecov.js node_modules\codecov\lib
+  - copy /y .\etc\lib\codecov.js .\node_modules\codecov\lib
 
 test_script:
   - cmd: SET PATH=C:\MinGW\bin;%PATH%
   - npm run coverage-lcovonly
-#  - npm run codecov
+  - npm run codecov
 
 build: off
 
