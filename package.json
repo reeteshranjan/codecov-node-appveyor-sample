@@ -1,14 +1,17 @@
 {
-  "name": "appveyor-env",
+  "name": "codecov-node-appveyor-sample",
   "version": "0.0.1",
   "description": "Figure out few details of appveyor env viz. powershell, gcc, equivalent of find etc.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "unit-tests": "./node_modules/.bin/mocha",
+    "coverage-html": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --ui bdd -R spec -t 5000",
+    "coverage-lcovonly": "./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- --reporter lcovonly --ui bdd -R spec -t 5000",
+    "codecov": "./node_modules/.bin/codecov"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reeteshranjan/appveyor-env.git"
+    "url": "git+https://github.com/reeteshranjan/codecov-node-appveyor-sample.git"
   },
   "keywords": [
     "appveyor",
@@ -20,10 +23,14 @@
   "author": "Reetesh Ranjan <reeteshranjan@piaxis.tech>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reeteshranjan/appveyor-env/issues"
+    "url": "https://github.com/reeteshranjan/codecov-node-appveyor-sample/issues"
   },
-  "homepage": "https://github.com/reeteshranjan/appveyor-env#readme",
+  "homepage": "https://github.com/reeteshranjan/codecov-node-appveyor-sample#readme",
   "devDependencies": {
-    "codecov": "^2.2.0"
+    "chai": "^3.5.0",
+    "codecov": "^2.2.0",
+    "eslint": "^3.19.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.4.1"
   }
 }

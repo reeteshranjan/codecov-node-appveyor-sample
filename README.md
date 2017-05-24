@@ -1,2 +1,2 @@
-# appveyor-env
-Figure out few details of appveyor env viz. powershell, gcc, equivalent of find etc.
+# codecov-node-appveyor-sample
+Sample project to test codecov coverage upload on Windows using appveyor

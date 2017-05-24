@@ -1,9 +1,10 @@
 environment:
-  matrix:
-    nodejs_version: "4"
-    nodejs_version: "5"
-    nodejs_version: "6"
-    nodejs_version: "7"
+  nodejs_version: "7"
+#  matrix:
+#  - nodejs_version: "4"
+#  - nodejs_version: "5"
+#  - nodejs_version: "6"
+#  - nodejs_version: "7"
 
 branches:
   only:
@@ -21,9 +22,12 @@ init:
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
+#  - copy etc\lib\codecov.js node_modules\codecov\lib
 
 test_script:
-  - cmd: gcov
+  - cmd: SET PATH=C:\MinGW\bin;%PATH%
+  - npm run coverage-lcovonly
+#  - npm run codecov
 
 build: off
 
