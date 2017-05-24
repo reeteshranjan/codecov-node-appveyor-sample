@@ -286,14 +286,20 @@ var upload = function(args, on_success, on_failure){
   upload += execSync('cd '+root+' && git ls-files || hg locate').toString().trim() + '\n<<<<<< network\n';
 
   // Make gcov reports
-  /*if ((args.options.disable || '').split(',').indexOf('gcov') === -1) {
+  if ((args.options.disable || '').split(',').indexOf('gcov') === -1) {
+    console.log('came here')
     try {
       console.log('==> Generating gcov reports (skip via --disable=gcov)');
       var gcg = args.options['gcov-glob'] || '';
-      if (gcg) {
+      /*if (gcg) {
         gcg = gcg.split(' ').map(function(p){return "-not -path '"+p+"'";}).join(' ');
+      }*/
+      var gcov;
+      if(!isWindows) {
+        gcov = "find "+(args.options['gcov-root'] || root)+" -type f -name '*.gcno' "+gcg+" -exec "+(args.options['gcov-exec'] || 'gcov')+" "+(args.options['gcov-args'] || '')+" {} +";
+      } else {
+        gcov = "for /f \"delims=\" %g in ('dir /a-d /b /s *.gcno') do "+(args.options['gcov-exec'] || 'gcov')+" "+(args.options['gcov-args'] || '')+" %g";
       }
-      var gcov = "find "+(args.options['gcov-root'] || root)+" -type f -name '*.gcno' "+gcg+" -exec "+(args.options['gcov-exec'] || 'gcov')+" "+(args.options['gcov-args'] || '')+" {} +";
       debug.push(gcov);
       console.log('    $ '+gcov);
       execSync(gcov);
@@ -302,7 +308,7 @@ var upload = function(args, on_success, on_failure){
     }
   } else {
     debug.push('disabled gcov');
-  }*/
+  }
 
   // Detect .bowerrc
   var bowerrc;

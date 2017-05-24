@@ -26,6 +26,8 @@ install:
 
 test_script:
   - cmd: SET PATH=C:\MinGW\bin;%PATH%
+  - gcc --coverage *.c
+  - .\a.exe
   - npm run coverage-lcovonly
   - npm run codecov
 

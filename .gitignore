@@ -57,3 +57,10 @@ typings/
 # dotenv environment variables file
 .env
 
+# gcov
+*.gcno
+*.gcda
+
+# local c exe
+a.exe
+*.c.gcov
