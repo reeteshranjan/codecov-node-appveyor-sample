@@ -12,68 +12,7 @@ var patterns, more_patterns = '';
 
 var isWindows = process.platform.match(/win32/) || process.platform.match(/win64/)
 
-if(isWindows) {
-  patterns
-             = '/a-d /b /s *coverage.* ' +
-               '/s nosetests.xml ' +
-               '/s jacoco*.xml ' +
-               '/s clover.xml ' +
-               '/s report.xml ' +
-               '/s cobertura.xml ' +
-               '/s luacov.report.out ' +
-               '/s lcov.info ' +
-               '/s *.lcov ' +
-               '/s gcov.info ' +
-               '/s *.gcov ' +
-               '/s *.lst' +
-               '| findstr /i /v \\.sh$ ' +
-               '| findstr /i /v \\.data$ ' +
-               '| findstr /i /v \\.py$ ' +
-               '| findstr /i /v \\.class$ ' +
-               '| findstr /i /v \\.xcconfig$ ' +
-               '| findstr /i /v Coverage\\.profdata$ ' +
-               '| findstr /i /v phpunit-code-coverage\\.xml$ ' +
-               '| findstr /i /v coverage\\.serialized$ ' +
-               '| findstr /i /v \\.pyc$ ' +
-               '| findstr /i /v \\.cfg$ ' +
-               '| findstr /i /v \\.egg$ ' +
-               '| findstr /i /v \\.whl$ ' +
-               '| findstr /i /v \\.html$ ' +
-               '| findstr /i /v \\.js$ ' +
-               '| findstr /i /v \\.cpp$ ' +
-               '| findstr /i /v coverage\\.jade$ ' +
-               '| findstr /i /v include\\.lst$ ' +
-               '| findstr /i /v inputFiles\\.lst$ ' +
-               '| findstr /i /v createdFiles\\.lst$ ' +
-               '| findstr /i /v coverage\\.html$ ' +
-               '| findstr /i /v scoverage\\.measurements\\..* ' +
-               '| findstr /i /v test_.*_coverage\\.txt ' +
-               '| findstr /i /v \\vendor\\ ' +
-               '| findstr /i /v \\htmlcov\\ ' +
-               '| findstr /i /v \\home\\cainus\\ ' +
-               '| findstr /i /v \\js\\generated\\coverage\\ ' +
-               '| findstr /i /v \\virtualenv\\ ' +
-               '| findstr /i /v \\virtualenvs\\ ' +
-               '| findstr /i /v \\\\.virtualenv\\ ' +
-               '| findstr /i /v \\\\.virtualenvs\\ ' +
-               '| findstr /i /v \\\\.env\\ ' +
-               '| findstr /i /v \\\\.envs\\ ' +
-               '| findstr /i /v \\env\\ ' +
-               '| findstr /i /v \\envs\\ ' +
-               '| findstr /i /v \\\\.venv\\ ' +
-               '| findstr /i /v \\\\.venvs\\ ' +
-               '| findstr /i /v \\venv\\ ' +
-               '| findstr /i /v \\venvs\\ ' +
-               '| findstr /i /v \\\\.git\\ ' +
-               '| findstr /i /v \\\\.hg\\ ' +
-               '| findstr /i /v \\\\.tox\\ ' +
-               '| findstr /i /v \\__pycache__\\ ' +
-               '| findstr /i /v \\\\.egg-info* ' +
-               '| findstr /i /v \\\\$bower_components\\ ' +
-               '| findstr /i /v \\node_modules\\ ' +
-               '| findstr /i /v \\conftest_.*\\.c\\.gcov ';
-}
-else {
+if(!isWindows) {
   patterns
              = "-type f \\( -name '*coverage.*' " +
                "-or -name 'nosetests.xml' " +
@@ -133,6 +72,67 @@ else {
                "-not -path '*/$bower_components/*' " +
                "-not -path '*/node_modules/*' " +
                "-not -path '*/conftest_*.c.gcov'";
+}
+else {
+  patterns
+             = '/a-d /b /s *coverage.* ' +
+               '/s nosetests.xml ' +
+               '/s jacoco*.xml ' +
+               '/s clover.xml ' +
+               '/s report.xml ' +
+               '/s cobertura.xml ' +
+               '/s luacov.report.out ' +
+               '/s lcov.info ' +
+               '/s *.lcov ' +
+               '/s gcov.info ' +
+               '/s *.gcov ' +
+               '/s *.lst' +
+               '| findstr /i /v \\.sh$ ' +
+               '| findstr /i /v \\.data$ ' +
+               '| findstr /i /v \\.py$ ' +
+               '| findstr /i /v \\.class$ ' +
+               '| findstr /i /v \\.xcconfig$ ' +
+               '| findstr /i /v Coverage\\.profdata$ ' +
+               '| findstr /i /v phpunit-code-coverage\\.xml$ ' +
+               '| findstr /i /v coverage\\.serialized$ ' +
+               '| findstr /i /v \\.pyc$ ' +
+               '| findstr /i /v \\.cfg$ ' +
+               '| findstr /i /v \\.egg$ ' +
+               '| findstr /i /v \\.whl$ ' +
+               '| findstr /i /v \\.html$ ' +
+               '| findstr /i /v \\.js$ ' +
+               '| findstr /i /v \\.cpp$ ' +
+               '| findstr /i /v coverage\\.jade$ ' +
+               '| findstr /i /v include\\.lst$ ' +
+               '| findstr /i /v inputFiles\\.lst$ ' +
+               '| findstr /i /v createdFiles\\.lst$ ' +
+               '| findstr /i /v coverage\\.html$ ' +
+               '| findstr /i /v scoverage\\.measurements\\..* ' +
+               '| findstr /i /v test_.*_coverage\\.txt ' +
+               '| findstr /i /v \\vendor\\ ' +
+               '| findstr /i /v \\htmlcov\\ ' +
+               '| findstr /i /v \\home\\cainus\\ ' +
+               '| findstr /i /v \\js\\generated\\coverage\\ ' +
+               '| findstr /i /v \\virtualenv\\ ' +
+               '| findstr /i /v \\virtualenvs\\ ' +
+               '| findstr /i /v \\\\.virtualenv\\ ' +
+               '| findstr /i /v \\\\.virtualenvs\\ ' +
+               '| findstr /i /v \\\\.env\\ ' +
+               '| findstr /i /v \\\\.envs\\ ' +
+               '| findstr /i /v \\env\\ ' +
+               '| findstr /i /v \\envs\\ ' +
+               '| findstr /i /v \\\\.venv\\ ' +
+               '| findstr /i /v \\\\.venvs\\ ' +
+               '| findstr /i /v \\venv\\ ' +
+               '| findstr /i /v \\venvs\\ ' +
+               '| findstr /i /v \\\\.git\\ ' +
+               '| findstr /i /v \\\\.hg\\ ' +
+               '| findstr /i /v \\\\.tox\\ ' +
+               '| findstr /i /v \\__pycache__\\ ' +
+               '| findstr /i /v \\\\.egg-info* ' +
+               '| findstr /i /v \\\\$bower_components\\ ' +
+               '| findstr /i /v \\node_modules\\ ' +
+               '| findstr /i /v \\conftest_.*\\.c\\.gcov ';
 }
 
 
@@ -287,18 +287,23 @@ var upload = function(args, on_success, on_failure){
 
   // Make gcov reports
   if ((args.options.disable || '').split(',').indexOf('gcov') === -1) {
-    console.log('came here')
     try {
       console.log('==> Generating gcov reports (skip via --disable=gcov)');
       var gcg = args.options['gcov-glob'] || '';
-      /*if (gcg) {
-        gcg = gcg.split(' ').map(function(p){return "-not -path '"+p+"'";}).join(' ');
-      }*/
+      if (gcg) {
+        if(!isWindows) {
+          gcg = gcg.split(' ').map(function(p){return "-not -path '"+p+"'";}).join(' ');
+        } else {
+          gcg = gcg.split(' ').map(function(p){return "^| findstr /i /v "+p;}).join(' ');
+        }
+      }
       var gcov;
       if(!isWindows) {
         gcov = "find "+(args.options['gcov-root'] || root)+" -type f -name '*.gcno' "+gcg+" -exec "+(args.options['gcov-exec'] || 'gcov')+" "+(args.options['gcov-args'] || '')+" {} +";
       } else {
-        gcov = "for /f \"delims=\" %g in ('dir /a-d /b /s *.gcno') do "+(args.options['gcov-exec'] || 'gcov')+" "+(args.options['gcov-args'] || '')+" %g";
+        // @TODO support for root
+        // not straight forward due to nature of windows command dir
+        gcov = "for /f \"delims=\" %g in ('dir /a-d /b /s *.gcno "+gcg+"') do "+(args.options['gcov-exec'] || 'gcov')+" "+(args.options['gcov-args'] || '')+" %g";
       }
       debug.push(gcov);
       console.log('    $ '+gcov);
@@ -349,7 +354,6 @@ var upload = function(args, on_success, on_failure){
     } else {
       // @TODO support for a root directory
       // It's not straightforward due to the nature of the dir command
-      console.log('dir ' + patterns + more_patterns)
       _files = execSync('dir ' + patterns + more_patterns).toString().trim().split('\r\n');
     }
     if (_files) {
