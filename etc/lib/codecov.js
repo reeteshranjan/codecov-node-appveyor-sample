@@ -8,7 +8,7 @@ var detectProvider = require('./detect');
 
 var version = 'v' + require('../package.json').version;
 
-var patterns, more_patterns = ''
+var patterns, more_patterns = '';
 
 var isWindows = process.platform.match(/win32/) || process.platform.match(/win64/)
 
@@ -71,7 +71,7 @@ if(isWindows) {
                '| findstr /i /v \\\\.egg-info* ' +
                '| findstr /i /v \\\\$bower_components\\ ' +
                '| findstr /i /v \\node_modules\\ ' +
-               '| findstr /i /v \\conftest_.*\\.c\\.gcov';
+               '| findstr /i /v \\conftest_.*\\.c\\.gcov ';
 }
 else {
   patterns
@@ -305,17 +305,26 @@ var upload = function(args, on_success, on_failure){
   }*/
 
   // Detect .bowerrc
-  //var bowerrc = execSync('cd '+root+' && test -f .bowerrc && cat .bowerrc || echo ""').toString().trim(), more_patterns = '';
-  //if (bowerrc) {
-    //bowerrc = JSON.parse(bowerrc).directory;
-    //if (bowerrc) {
-      //more_patterns = " -not -path '*/" + bowerrc.toString().replace(/\/$/, '') + "/*'";
-    //}
-  //}
+  var bowerrc;
+  if(!isWindows) {
+    bowerrc = execSync('cd '+root+' && test -f .bowerrc && cat .bowerrc || echo ""').toString().trim(), more_patterns = '';
+  } else {
+    bowerrc = execSync('cd '+root+' && if exist .bowerrc type .bowerrc').toString().trim(), more_patterns = '';
+  }
+  if (bowerrc) {
+    bowerrc = JSON.parse(bowerrc).directory;
+    if (bowerrc) {
+      if(!isWindows) {
+        more_patterns = " -not -path '*/" + bowerrc.toString().replace(/\/$/, '') + "/*'";
+      } else {
+        more_patterns = '| findstr /i /v \\' + bowerrc.toString().replace(/\/$/, '') + '\\';
+      }
+    }
+  }
 
   var files = [], file = null;
   // Append manually entered reports
-  /*if (args.options.file) {
+  if (args.options.file) {
     file = args.options.file;
     console.log('==> Targeting specific file');
     try {
@@ -326,7 +335,7 @@ var upload = function(args, on_success, on_failure){
       debug.push('failed: ' + file.split('/').pop());
       console.log('    X Failed to read file at ' + file);
     }
-  } else */if ((args.options.disable || '').split(',').indexOf('search') === -1) {
+  } else if ((args.options.disable || '').split(',').indexOf('search') === -1) {
     console.log('==> Scanning for reports');
     var _files
     if(!isWindows) {
