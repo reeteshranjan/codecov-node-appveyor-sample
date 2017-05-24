@@ -25,7 +25,7 @@ if(isWindows) {
                '/s *.lcov ' +
                '/s gcov.info ' +
                '/s *.gcov ' +
-               '/s *.lst ' +
+               '/s *.lst' +
                '| findstr /i /v \\.sh$ ' +
                '| findstr /i /v \\.data$ ' +
                '| findstr /i /v \\.py$ ' +
@@ -51,10 +51,10 @@ if(isWindows) {
                '| findstr /i /v \\vendor\\ ' +
                '| findstr /i /v \\htmlcov\\ ' +
                '| findstr /i /v \\home\\cainus\\ ' +
-               '| findstr /i /v .*-virtualenv\\ ' +
                '| findstr /i /v \\js\\generated\\coverage\\ ' +
+               '| findstr /i /v \\virtualenv\\ ' +
+               '| findstr /i /v \\virtualenvs\\ ' +
                '| findstr /i /v \\\\.virtualenv\\ ' +
-               '| findstr /i /v .*-virtualenvs\\ ' +
                '| findstr /i /v \\\\.virtualenvs\\ ' +
                '| findstr /i /v \\\\.env\\ ' +
                '| findstr /i /v \\\\.envs\\ ' +
@@ -62,8 +62,8 @@ if(isWindows) {
                '| findstr /i /v \\envs\\ ' +
                '| findstr /i /v \\\\.venv\\ ' +
                '| findstr /i /v \\\\.venvs\\ ' +
-               '| findstr /i /v .*-venv\\ ' +
-               '| findstr /i /v .*-venvs\\ ' +
+               '| findstr /i /v \\venv\\ ' +
+               '| findstr /i /v \\venvs\\ ' +
                '| findstr /i /v \\\\.git\\ ' +
                '| findstr /i /v \\\\.hg\\ ' +
                '| findstr /i /v \\\\.tox\\ ' +
@@ -315,7 +315,7 @@ var upload = function(args, on_success, on_failure){
 
   var files = [], file = null;
   // Append manually entered reports
-  if (args.options.file) {
+  /*if (args.options.file) {
     file = args.options.file;
     console.log('==> Targeting specific file');
     try {
@@ -326,12 +326,14 @@ var upload = function(args, on_success, on_failure){
       debug.push('failed: ' + file.split('/').pop());
       console.log('    X Failed to read file at ' + file);
     }
-  } else if ((args.options.disable || '').split(',').indexOf('search') === -1) {
+  } else */if ((args.options.disable || '').split(',').indexOf('search') === -1) {
     console.log('==> Scanning for reports');
     var _files
     if(!isWindows) {
       _files = execSync('find ' + root + ' ' + patterns + more_patterns).toString().trim().split('\n');
     } else {
+      // @TODO support for a root directory
+      // It's not straightforward due to the nature of the dir command
       console.log('dir ' + patterns + more_patterns)
       _files = execSync('dir ' + patterns + more_patterns).toString().trim().split('\r\n');
     }
